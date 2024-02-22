@@ -1,0 +1,47 @@
+{% extends"layout.html" %}
+{% block content %}
+    <h4>Edit the match data.</h4><br><br>
+     {% if error %}
+        <p><strong>Error</strong>: {{error}}</p>
+     {% endif %}
+    <div class="columns">
+        <form action="{{url_for('update_match')}}"  method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="type" name="type" value="matchupdate" />
+            <input type="hidden" id="subid" name="subid" value="{{ match[18] }}" />
+          <label for="type">Type</label>
+          <input type="text" id="round" name="round" value="{{ match[2] }}" required><br><br>
+          <label for="date_time">Time</label>
+          <input type="text" id="date_time" name="date_time" value="{{ match[3] }}" required><br><br>
+            <label for="pso">Penalty Shoot-out</label>
+          <input type="text" id="pso" name="pso" value="{{ match[4] }}" required><br><br>
+            <label for="pso">After extra time</label>
+          <input type="text" id="aet" name="aet" value="{{ match[5] }}" required><br><br>
+            <label for="team1_code">Team 1 Code</label>
+          <input type="text" id="team1_code" name="team1_code" value="{{ match[6] }}" required><br><br>
+            <label for="team1_name">Team 1 Name</label>
+          <input type="text" id="team1_name" name="team1_name" value="{{ match[7] }}" required><br><br>
+            <label for="ht_team1_goals">Half Time Team 1 Goals</label>
+          <input type="text" id="ht_team1_goals" name="ht_team1_goals" value="{{ match[8] }}" required><br><br>
+            <label for="ft_team1_goals">Full Time Team 1 Goals</label>
+          <input type="text" id="ft_team1_goals" name="ft_team1_goals" value="{{ match[9] }}" required><br><br>
+            <label for="et_team1_goals">Extra Time Team 1 Goals</label>
+          <input type="text" id="et_team1_goals" name="et_team1_goals" value="{{ match[10] }}" required><br><br>
+            <label for="ps_team1_goals">Penalty Shoot Team 1 Goals</label>
+          <input type="text" id="ps_team1_goals" name="ps_team1_goals" value="{{ match[11] }}" required><br><br>
+            <label for="team2_code">Team 2 Code</label>
+          <input type="text" id="team2_code" name="team2_code" value="{{ match[12] }}" required><br><br>
+            <label for="team2_name">Team 2 Name</label>
+          <input type="text" id="team2_name" name="team2_name" value="{{ match[13] }}" required><br><br>
+            <label for="ht_team2_goals">Half Time Team 2 Goals</label>
+          <input type="text" id="ht_team2_goals" name="ht_team2_goals" value="{{ match[14] }}" required><br><br>
+            <label for="ft_team2_goals">Full Time Team 2 Goals</label>
+          <input type="text" id="ft_team2_goals" name="ft_team2_goals" value="{{ match[15] }}" required><br><br>
+            <label for="et_team2_goals">Extra Time Team 2 Goals</label>
+          <input type="text" id="et_team2_goals" name="et_team2_goals" value="{{ match[16] }}" required><br><br>
+            <label for="ps_team2_goals">Penalty Shoot Team 2 Goals</label>
+          <input type="text" id="ps_team2_goals" name="ps_team2_goals" value="{{ match[17] }}" required><br><br>
+            <button class="button is-light" type="submit">Done</button>
+        </form>
+</div>
+
+{% endblock %}

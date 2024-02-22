@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %} 
+{% block content %}
+
+
+    {% if seasons %}
+    <h3>Select season to see that season's teams</h3>
+    <form action="/season_teams", method="POST", enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="season_selection_submit" />
+        <select name="seasons_selector" id="seasons_selector" required="true">
+        {% for season in seasons %}
+        <option value="{{season[0]}}">{{season[0]}}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">See Teams</button>
+    </form>
+      
+      <br>
+    {% endif %}
+
+    {% if teams %}
+        <table id="teams_profiles_table">
+            <tr>
+                <th>Team Code</th>
+                <th>Team Name</th>
+                <th>Playoff</th>
+            </tr>
+            {% for team in teams %}
+                <tr>
+                    <td class = "teamCode">{{ team.team_code }}</td>
+                    <td class = "teamName">{{ team.team_name }}</td>
+                    <td class = "teamPlayoff">{{ team.playoff }}</td> 
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </table>    
+        <br><br>
+{% endblock %}

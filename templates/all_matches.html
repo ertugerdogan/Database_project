@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Matches{% endblock %}
+{% block content %}
+    <div class="columns">
+      <div class="column">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+            <p>Select Season</p>
+
+              <ul> {%  for season in seasons %}
+                <li><a href="{{url_for('take_match',season=season)}}">{{season}}</a></li>
+              {%  endfor %}
+                </ul>
+            </nav>
+        </div>
+        </div>
+    </div>
+   {% block match %}{% endblock %}
+{% endblock %}

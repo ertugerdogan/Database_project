@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <script type="text/javascript">
+        function ShowAndHide(id) {
+            var x = document.getElementById(id);
+            if (x.style.display == 'block')
+                x.style.display = 'none';
+            else
+                x.style.display = 'block';
+        }
+    </script>
+    <style>
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: rgb(255, 255, 255);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        input[type = text] {
+            background-color: #2e3dc0;
+            color: rgb(255, 0, 0);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        input[type = checkbox] {
+            background-color: #d9ff00;
+            color: rgb(0, 0, 0);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+
+    <h1>Match Info</h1>
+    <p>Instructions</p>
+    <p>On this page, you can list the referees who directed the most matches and the stadiums with the highest audience. In
+    addition, if you wish, you can add new matches to the database or update matches by entering the referee and stadium information. 
+    With the Type Select button, you can get a restricted list view by selecting any of the columns in the entire database.</p>
+
+    <h2>Please Select What Do You Want To Do</h2>
+    <button class = "button" onclick="ShowAndHide('update');">Update Data</button>
+    <button class = "button" onclick="ShowAndHide('add');">Add New Data</button>
+    <button class = "button" onclick="ShowAndHide('remove');">Remove Data</button>
+    <button class = "button" onclick="ShowAndHide('typeselect');">Type Select</button>
+    <button class = "button" onclick="ShowAndHide('variable');">Show All Infos, Stadium Name with Attendance or Referee Names</button>
+    <button class = "button" onclick="ShowAndHide('radiobuttons');">Show Highest Attendance and Referee For Most Matches</button>
+    <div id="update" style="display:none">
+        <h2>Please Select Data What Do You Want To Update</h2>
+        <button class = "button" onclick="ShowAndHide('stadium');">Update Stadium, Attendance or Referee</button>
+        <button class = "button" onclick="ShowAndHide('asstreferees');">Update Assistant Referees or Referee Assistants In Every Row</button>
+        <form id="stadium" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+            <input type="hidden" id="type" name="type" value="matchchange" />
+            <h4>InfoId:</h4>
+            <input type="text" name="infoid">
+            <h4>column Name(stadium,attendance,referee):</h4>
+            <input type="text" name="column">
+            <h4>New Data:</h4>
+            <input type="text" name="changing">
+            <button class = "button" type="submit">Done</button>
+        </form>
+        <form id="asstreferees" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+            <input type="hidden" id="type" name="type" value="refereechange" />
+            <h4>column Name(asstreferees,refereeasst):</h4>
+            <input type="text" name="column">
+            <h4>Asst Referee 1:</h4>
+            <input type="text" name="changing1">
+            <h4>Asst Referee 2:</h4>
+            <input type="text" name="changing2">
+            <button class = "button" type="submit">Done</button>
+        </form>
+    </div>
+    <form id = "add" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+        <h2>Create a new match</h2>
+        <input type="hidden" id="type" name="type" value="creatematch" />
+        <h4>Stadium Name:</h4>
+        <input type="text" name="stadium">
+        <h4>Attendance:</h4>
+        <input type="text" name="attendance">
+        <h4>Referee Name: </h4>
+        <input type="text" name="referee">
+        <h4>Assistant Referee 1:</h4>
+        <input type="text" name="asst_referee_1">
+        <h4>Assistant Referee 2:</h4>
+        <input type="text" name="asst_referee_1">
+        <h4>MatchId:</h4>
+        <input type="text" name="matchid">
+        <button class = "button" type="submit">Done</button>
+    </form>
+    <form id="remove" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+        <h2>Delete Match</h2>
+        <input type="hidden" id="type" name="type" value="deletematch" />
+        <h4>InfoId:</h4>
+        <input type="text" name="infoid">
+        <button class = "button" type="submit">Done</button>
+    </form>
+    <div id="variable" style="display:none">
+        <br></br>
+        <button class = "button" onclick="ShowAndHide('getmatch');">Show All Match Infos</button>
+        <button class = "button" onclick="ShowAndHide('getattendance');">Show Stadium&Attendance</button>
+        <button class = "button" onclick="ShowAndHide('getreferees');">Show Referees</button>
+        <form id="getmatch" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+            <h2>Show All Match Infos</h2>
+            <input type="hidden" id="type" name="type" value="getmatch" />
+            <h4>InfoId:</h4>
+            <input type="text" name="infoid">
+            <button class = "button" type="submit">Done</button>
+        </form>
+        <form id="getattendance" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+            <h2>Show Stadium&Attendance</h2>
+            <input type="hidden" id="type" name="type" value="getattendance" />
+            <h4>InfoId:</h4>
+            <input type="text" name="infoid">
+            <button class = "button" type="submit">Done</button>
+        </form>
+        <form id="getreferees" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+            <h2>Show Referees</h2>
+            <input type="hidden" id="type" name="type" value="getreferees" />
+            <h4>InfoId:</h4>
+            <input type="text" name="infoid">
+            <button class = "button" type="submit">Done</button>
+        </form>
+    </div>
+    <form id="getmatch" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+        <h2>Show Match Infos</h2>
+        <input type="hidden" id="type" name="type" value="getmatch" />
+        <h4>InfoId:</h4>
+        <input type="text" name="infoid">
+        <button class = "button" type="submit">Done</button>
+    </form>
+    <form id ="typeselect" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+        <input type="hidden" id="type" name="type" value="typeselect" />
+        <h2>Select the column you want to see:</h2>
+        <input type="checkbox" id="column1" name="column1" value="infoid">
+        <label for="type1"> InfoId</label>
+
+        <input type="checkbox" id="column2" name="column2" value="stadium">
+        <label for="type2"> Stadium</label>
+    
+        <input type="checkbox" id="column3" name="column3" value="attendance">
+        <label for="type3"> Attendance</label>
+    
+        <input type="checkbox" id="column4" name="column4" value="referee">
+        <label for="type4"> Referee</label>
+    
+        <input type="checkbox" id="column5" name="column5" value="asst_referee_1">
+        <label for="type5"> Assistant Referee 1</label>
+    
+        <input type="checkbox" id="column6" name="column6" value="asst_referee_2">
+        <label for="type6"> Assistant Referee 2</label>
+    
+        <input type="checkbox" id="column7" name="column7" value="matchid">
+        <label for="type7"> MatchId</label>
+    
+        <button class = "button" type="submit" value="Select"> Select </button>
+    </form>
+    <form id = "radiobuttons" action="/said" method="POST" enctype="multipart/form-data" style="display:none">
+        <input type="hidden" id="type" name="type" value="radiobuttons"/>
+        <h2>Please select the table you want to see:</h2>
+        <input type="radio" id="age1" name="FEATURE" value="1">
+        <label for="ATTENDANCE">Top Attendance Stadiums</label>
+        <input type="radio" id="age2" name="FEATURE" value="2">
+        <label for="REFEREE">Referee For Most Matches</label>
+        <button class = "button" type="submit" value="Select"> Select </button>
+    </form>
+    {% if updatedData_ %}
+    
+    <p>{{updatedData_[0]}} </p>
+    {% endif %}
+    
+    {% if data_ %}
+    
+    <table class="table">
+    
+        <thead>
+            <tr>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+                <th> </th>
+    
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data_ %}
+    
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+                <td>{{row[5]}}</td>
+                <td>{{row[6]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}

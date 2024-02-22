@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+  <table class="table">
+  <thead>
+    <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Date-Time</th>
+      <th>Team 1 Name</th>
+      <th><abbr title="Half Time Goals">HTG</abbr></th>
+      <th><abbr title="Full Time Goals">FTG</abbr></th>
+      <th><abbr title="Extra Time Goals">ETG</abbr></th>
+      <th><abbr title="Penalty Shoot Goals">PSG</abbr></th>
+       <th>Team 2 Name</th>
+       <th><abbr title="Half Time Goals">HTG</abbr></th>
+      <th><abbr title="Full Time Goals">FTG</abbr></th>
+      <th><abbr title="Extra Time Goals">ETG</abbr></th>
+      <th><abbr title="Penalty Shoot Goals">PSG</abbr></th>
+    </tr>
+  </thead>
+    <tbody>
+    {%  for date in dates %}
+
+    <tr>
+        <td>{{ loop.index}}</td>
+      <td>{{ date[2] }}</td>
+        <td>{{ date[3] }}</td>
+        <td>{{ date[7] }}</td>
+        <td>{{ date[8] }}</td>
+        <td>{{ date[9] }}</td>
+        <td>{{ date[10] }}</td>
+        <td>{{ date[11] }}</td>
+        <td>{{ date[13] }}</td>
+        <td>{{ date[14] }}</td>
+        <td>{{ date[15] }}</td>
+        <td>{{ date[16] }}</td>
+        <td>{{ date[17] }}</td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

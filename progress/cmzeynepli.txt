@@ -1,0 +1,15 @@
+# itudb2224
+# 15.11.2022 
+- creating server on google cloud
+- installing docker on server
+- creating Postresql server on server with docker (host name / address 34.76.141.194:5432)
+
+# 09.12.2022 
+- adding football teams logos
+
+
+#12.12.2022
+- added some python and html files
+
+#13.12.2022
+ - added some python and html files

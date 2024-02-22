@@ -1,0 +1,207 @@
+{% extends"all_matches.html" %}
+{% block match %}
+    {% set x=1%}
+
+    <div class="columns">
+        <div class="column is-one-third">
+            <b></b>
+        </div>
+         <div class="column is-one-third">
+            <b>Type</b>
+            {{ dates[x][2] }}
+        </div>
+         <div class="is-one-third">
+            <b></b>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-one-third">
+            <b></b>
+        </div>
+         <div class="column is-one-third">
+            <b>Time</b>
+            {{ dates[x][3] }}
+        </div>
+         <div class="is-one-third">
+            <b></b>
+        </div>
+    </div>
+    <div class="columns">
+    {% set path="/static/indian-super-league.png" %}
+        <div class="column is-one-third">
+         {%if dates[x][6]  == 'JSD' %}
+                {% set path= '/static/Jamshedpur_FC_logo.svg.png'%}
+            {%elif dates[x][6]== 'KER'%}
+                {% set path= '/static/karlea.png'%}
+            {%elif dates[x][6] == 'BGL'%}
+                {% set path= '/static/Bengaluru.svg.png' %}
+            {%elif dates[x][6] == 'NEU'%}
+                {% set path=  '/static/NorthEast_United_FC_logo.svg.png'%}
+            {%elif dates[x][6] == 'CHN'%}
+                 {% set path= '/static/Chennaiyin.svg.png'%}
+            {%elif dates[x][6]  == 'GOA'%}
+                 {% set path= '/static/FC_Goa_logo.svg.png'%}
+            {%elif dates[x][6] == 'PUN'%}
+                {% set path=  '/static/Official_FC_Pune_City_Logo.png'%}
+            {%elif dates[x][6]== 'MUM'%}
+                {% set path=  '/static/Mumbai_City_FC.svg.png'%}
+            {%elif dates[x][6]=='DEL'%}
+                {% set path= '/static/Delhi-Dynamos-FC.png'%}
+            {%elif dates[x][6]=='ATK'%}
+                {% set path=  '/static/Official_ATK_Logo.png'%}
+            {% endif %}
+            <figure class="image is-64x64">
+              <img src="{{ path }}">
+            </figure>
+        </div>
+         <div class="column is-one-third">
+
+        </div>
+         <div class="is-one-third">
+               {%if dates[x][12]  == 'JSD' %}
+                {% set path= '/static/Jamshedpur_FC_logo.svg.png'%}
+            {%elif dates[x][12]== 'KER'%}
+                {% set path= '/static/karlea.png'%}
+            {%elif dates[x][12] == 'BGL'%}
+                {% set path= '/static/Bengaluru.svg.png' %}
+            {%elif dates[x][12] == 'NEU'%}
+                {% set path=  '/static/NorthEast_United_FC_logo.svg.png'%}
+            {%elif dates[x][12] == 'CHN'%}
+                 {% set path= '/static/Chennaiyin.svg.png'%}
+            {%elif dates[x][12]  == 'GOA'%}
+                 {% set path= '/static/FC_Goa_logo.svg.png'%}
+            {%elif dates[x][12] == 'PUN'%}
+                {% set path=  '/static/Official_FC_Pune_City_Logo.png'%}
+            {%elif dates[x][12]== 'MUM'%}
+                {% set path=  '/static/Mumbai_City_FC.svg.png'%}
+            {%elif dates[x][12]=='DEL'%}
+                {% set path= '/static/Delhi-Dynamos-FC.png'%}
+            {%elif dates[x][12]=='ATK'%}
+                {% set path=  '/static/Official_ATK_Logo.png'%}
+            {% endif %}
+             <figure class="image is-64x64">
+              <img src="{{ path }}">
+            </figure>
+        </div>
+    </div>
+      <div class="columns">
+        <div class="column is-one-third">
+            <b></b>
+        </div>
+         <div class="column is-one-third">
+            <b></b>
+        </div>
+         <div class="is-one-third">
+            <b></b>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-one-third">
+           {{ dates[x][7] }}
+        </div>
+         <div class="column is-one-third">
+
+        </div>
+         <div class="is-one-third">
+            {{ dates[x][13] }}
+        </div>
+    </div>
+      <div class="columns">
+        <div class="column is-one-third">
+           {{ dates[x][8] }}
+        </div>
+         <div class="column is-one-third">
+            <b>Half Time Score</b>
+        </div>
+         <div class="is-one-third">
+            {{ dates[x][14] }}
+        </div>
+    </div>
+        <div class="columns">
+        <div class="column is-one-third">
+           {{ dates[x][9] }}
+        </div>
+         <div class="column is-one-third">
+            <b>Full Time Score</b>
+        </div>
+         <div class="is-one-third">
+            {{ dates[x][15] }}
+        </div>
+    </div>
+
+        <div class="columns">
+        <div class="column is-one-third">
+           {% if dates[x][10]=='NA' %}
+            <p>No extra time</p>
+            {% else %}
+                {{ dates[x][10] }}
+            {% endif %}
+        </div>
+         <div class="column is-one-third">
+            <b>Extra Time Score</b>
+        </div>
+         <div class="is-one-third">
+            {% if dates[x][16]=='NA' %}
+            <p>No extra time</p>
+            {% else %}
+                {{ dates[x][16] }}
+            {% endif %}
+        </div>
+
+    </div>           <div class="columns">
+        <div class="column is-one-third">
+           {% if dates[x][11]=='NA' %}
+            <p>No penalty shoot</p>
+            {% else %}
+                {{ dates[x][11] }}
+            {% endif %}
+        </div>
+         <div class="column is-one-third">
+            <b>Penalty Shoots</b>
+        </div>
+         <div class="is-one-third">
+            {% if dates[x][17]=='NA' %}
+            <p>No penalty shoot</p>
+            {% else %}
+                {{ dates[x][16] }}
+            {% endif %}
+        </div>
+</div>
+
+     <div class="columns">
+        <div class="column is-one-third">
+            <b></b>
+        </div>
+         <div class="column is-one-third">
+         {% if x >0 %}
+
+           <button class="button is-light" onclick="{% set x= x - 1 %};">Previous</button>
+
+           {% endif %}
+         {% if dates|length >x   %}
+             <button class="button is-light" onclick="{% set x= x + 1 %};">Next</button>
+            {% endif %}
+        </div>
+         <div class="is-one-third">
+            <b></b>
+        </div>
+    </div>
+    <div class="columns is-gapless">
+        <div class="column">
+            <b></b>
+        </div>
+         <div class="column">
+             <button class="button is-light">
+                <a href="{{url_for('add_match',season=dates[x][0])}}">Add New</a> </button>
+             <button class="button is-light">
+            <a href="{{url_for('edit_match',match=dates[x][18])}}"> Edit</a></button>
+             <button class="button is-light">
+           <a href="{{url_for('delete_match',subid=dates[x][18])}}"> Delete</a></button>
+             <button class="button is-light">
+             <a href="{{url_for('whole_season',season=dates[x][0])}}">Show Whole Season</a></button>
+        </div>
+         <div class="column">
+             <b></b>
+        </div>
+    </div>
+{% endblock %}

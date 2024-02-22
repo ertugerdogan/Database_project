@@ -1,0 +1,222 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %} 
+{% block content %}
+{% if new_data %}
+
+{% if not "No such player found in the Indian league" in new_data[0] %}
+<p>Player {{new_data[0]}} exist</p>
+{% else %}
+<p>{{new_data[0]}} </p>
+{% endif %}
+
+{% endif %}
+
+{% if data %}
+
+<table class="table">
+
+<thead>
+        <tr>
+          
+          <th> </th>
+
+          <th> </th>
+
+          <th> </th>
+        
+          <th> </th>
+         
+          <th> </th>
+ 
+          <th> </th>
+    
+          <th> </th>
+
+          <th> </th>
+      
+          <th> </th>
+    
+        </tr>
+    </thead>
+<tbody> 
+{% for row in data %}
+
+<tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+    <td>{{row[2]}}</td>
+    <td>{{row[3]}}</td>
+    <td>{{row[4]}}</td>
+    <td>{{row[5]}}</td>
+    <td>{{row[6]}}</td>
+    <td>{{row[7]}}</td>
+    <td>{{row[8]}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+
+<style>
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type=radio] {
+        width:30px;
+        height:30px;
+        accent-color: purple;
+    }
+
+
+    input[type=checkbox]
+   {
+   position: relative;
+   margin:5px;
+   vertical-align: middle;
+   width:30px;
+   height:30px;
+   border:1px solid #ddd;
+   display:inline-block;
+   cursor:pointer;
+   accent-color: purple;
+   }
+
+    
+
+    </style>
+
+    <h1>Hero Indian Super League</h1>
+    <h2>Update something (_id,player, variable, changing)</h2>
+    <form action="/ertug" method="POST"  enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="playerchange" />
+        <h4>ID:</h4>
+        <input type="text" name="_id">
+        <h4>Player Name:</h4>
+        <input type="text" name="player">
+        <h4>Variable Name:</h4>
+        <input type="text" name="variable">
+        <h4>New Data: </h4>
+        <input type="text" name="changing">
+        <button type="submit">Done</button>
+    </form>
+    <br></br>
+
+    <form action="/ertug"  method="POST"  enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="vehicleselect" />
+        <h2>Select the table features you want to see:</h2>
+        <input type="checkbox" id="feature1" name="feature1" value="jersey_no">
+        <label for="vehicle1"> jersey_no</label><br>
+
+        <input type="checkbox" id="feature2" name="feature2" value="player">
+        <label for="vehicle2"> player</label><br>
+
+        <input type="checkbox" id="feature3" name="feature3" value="card_time">
+        <label for="vehicle3"> card_time</label><br>
+        
+        <input type="checkbox" id="feature4" name="feature4" value="substituion_time">
+        <label for="vehicle1"> substituion_time</label><br>
+
+        <input type="checkbox" id="feature5" name="feature5" value="p_s">
+        <label for="vehicle2"> p_s</label><br>
+
+        <input type="checkbox" id="feature6" name="feature6" value="team_code">
+        <label for="vehicle3"> team_code</label><br>
+
+        <input type="checkbox" id="feature7" name="feature7" value="goal_time">
+        <label for="vehicle2"> goal_time</label><br>
+
+        <input type="checkbox" id="feature8" name="feature8" value="match_id">
+        <label for="vehicle3"> match_id</label><br>
+
+        <input type="checkbox" id="feature9" name="feature9" value="_id">
+        <label for="vehicle3"> _id</label><br><br>
+
+        <input type="submit" value="Select">
+        
+    </form>
+    <br></br>
+    
+    <form action="/ertug"  method="POST"  enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="radiobuttons" />
+        <h2>Please select the table you want to see:</h2>
+        <input type="radio" id="age1" name="FEATURE" value="1">
+        <label for="CARD">Player with the most cards</label><br>
+        <input type="radio" id="age3" name="FEATURE" value="2">
+        <label for="GOAL">Top scorers</label><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br></br>
+
+    <form action="/ertug"  method="POST"  enctype="multipart/form-data">
+        <h2>Please select the team you want to see its players:</h2>
+        <select name="teams" id="teams">
+          <option value="JSD">JSD</option>
+          <option value="KER">KER</option>
+          <option value="BGL">BGL</option>
+          <option value="NEU">NEU</option>
+          <option value="CHN">CHN</option>
+          <option value="GOA">GOA</option>
+          <option value="PUN">PUN</option>
+          <option value="bl">bl</option>
+          <option value="DEL">DEL</option>
+          <option value="MUM">MUM</option>
+          <option value="ATK">ATK</option>
+        </select>
+        <br><br>
+        <input type="submit" id="type" name="type" value="Teams" />
+    </form>
+    <br></br>
+
+    <form action="/ertug"  method="POST" >
+        <h2>Check if such a player exists:</h2>
+        <input type="hidden" id="type" name="type" value="newone" />
+        <textarea name="username"></textarea>
+        <!--<input type="text" name="username">-->
+        <input type="submit" value="Send">
+    </form>  
+    <br></br>
+
+    <h2>Create a new player statistic </h2>
+    <form action="/ertug" method="POST"  enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="createplayer" />
+        <h4>Jersey No:</h4>
+        <input type="text" name="jersey_no">
+        <h4>Player Name:</h4>
+        <input type="text" name="player">
+        <h4>Card Time: </h4>
+        <input type="text" name="card_time">
+        <h4>Substitution Time</h4>
+        <input type="text" name="substitution_time">
+        <h4>p_s: </h4>
+        <input type="text" name="p_s">
+        <h4>Team Code: </h4>
+        <input type="text" name="team_code">
+        <h4>Goal Time </h4>
+        <input type="text" name="goal_time">
+        <h4>Match Id </h4>
+        <input type="text" name="match_id">
+        <button type="submit">Done</button>
+    </form>
+
+    <br></br>
+    <h4>Enter the ID of the statistics you want to delete:</h4>
+    <form action="/ertug" method="POST"  enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="deleteplayer" />
+        <input type="text" name="_id">
+        <h4>_id:</h4>
+        <button type="submit">Done</button>
+    </form>
+        
+
+ 
+
+
+{% endblock %}
+

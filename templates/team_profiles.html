@@ -1,0 +1,264 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %} 
+{% block content %}
+
+    {% if teams %}
+        <table id="teams_profiles_table">
+            <tr>
+                <th>Team Code</th>
+                <!-- <th>Foundation Year</th>
+                <th>Website</th> -->
+                <th>Team Name</th>
+                <th>Nickname</th>
+                <!-- <th>Country</th> -->
+            </tr>
+            {% for team in teams %}
+                <tr>
+                    <td class = "teamCode">{{ team.team_code }}</td>
+                    <td class = "teamName">{{ team.team }}</td>
+                    <td class = "teamNickname">{% if team.nickname %} {{ team.nickname }} {% endif %}</td> 
+                    <td class="teamCountry" style="display: none;">{% if team.country %} {{ team.country }} {% endif %}</td> 
+                    <td class="teamFounded" style="display: none;">{% if team.founded %} {{ team.founded }} {% endif %}</td>
+                    <td class="teamHomepage" style="display: none;">{% if team.homepage %} {{ team.homepage }} {% endif %}</td>
+                    <td class="teamStadium" style="display: none;">{% if team.stadium %} {{ team.stadium }} {% endif %}</td>
+                    <td class="teamStadiumCapacity" style="display: none;">{% if team.stadium_capacity %} {{ team.stadium_capacity }} {% endif %}</td>
+                    <td class="teamFullName" style="display: none;">{%if team.full_name %} {{team.full_name}} {% endif %}</td>
+                </tr>
+            {% endfor %}
+        </table>    
+        <br><br>
+        <h3 style='font-weight: bold; display:block; margin:auto; text-align: center;'>Below select the fields you want to update and the team which you want to update the fields of</h3>
+<br>
+        <div style="display: block; margin:0 auto; align-content: center;">
+<form action="/team_profiles" method="POST" enctype="multipart/form-data" id="update_team">
+  <input type="hidden" id="type" name="type" value="team_update" />
+  <select name="team_code" id="team_code" required="true">
+    {% for team in teams %}
+    <option value="{{team.team_code}}">{{team.team_code}}</option>
+    {% endfor %}
+  </select><br>
+    <input type="checkbox" id="c_name" onclick="enableDisable(this.checked, 'updated_name', 'c_name')" name="name" value="">
+    <label for="name"> name</label>
+    <input type="text" id="updated_name" name="updated_name" hidden="true"><br>
+  
+    <input type="checkbox" id="nickname" onclick="enableDisable(this.checked, 'updated_nickname', 'c_name')" name="nickname" value="">
+    <label for="nickname">nickname</label>
+    <input type="text" id="updated_nickname"  name="updated_nickname" hidden="true"><br>
+
+    <input type="checkbox" id="country" onclick="enableDisable(this.checked, 'updated_country', 'c_name')" name="c_country" value="">
+    <label for="country">country</label>
+    <input type="text" id="updated_country" name="updated_country" hidden="true"><br>
+
+    <input type="checkbox" id="founded" onclick="enableDisable(this.checked, 'updated_founded', 'c_name')" name="c_founded" value="">
+    <label for="founded">foundation year</label>
+    <input type="text" id="updated_founded" name="updated_founded" hidden="true"><br>
+
+    <input type="checkbox" id="homepage" onclick="enableDisable(this.checked, 'updated_homepage', 'c_name')" name="c_homepage" value="">
+    <label for="homepage">homepage</label>
+    <input type="text" id="updated_homepage" name="updated_homepage" hidden="true"><br>
+
+    <input type="checkbox" id="stadium" onclick="enableDisable(this.checked, 'updated_stadium', 'c_name')" name="c_stadium" value="">
+    <label for="stadium">stadium</label>
+    <input type="text" id="updated_stadium" name="updated_stadium" hidden="true"><br>
+
+    <input type="checkbox" id="stadium_capacity" onclick="enableDisable(this.checked, 'updated_stadium_capacity', 'c_name')" name="c_stadium_capacity" value="">
+    <label for="stadium_capacity">stadium capacity</label>
+    <input type="text" id="updated_stadium_capacity" name="updated_stadium_capacity" hidden="true"><br>
+
+    <button type="submit">UPDATE</button>
+</form>
+</div>
+</div>
+    {% endif %} 
+
+  
+    <h1 style='font-weight: bold; display:block; margin:auto; text-align: center;'>Add Team</h1>
+    <form action="/team_profiles" method="POST" enctype="multipart/form-data">
+      <input type="hidden" id="type" name="type" value="add_team" />
+      <input type="text" name="add_team_code" placeholder="code">
+      <input type="text" name="add_team" placeholder="name">
+      <input type="text" name="add_full_name" placeholder="official name">
+      <input type="text" name="add_nickname" placeholder="nickname">
+      <input type="text" name="add_country" placeholder="country">
+      <input type="text" name="add_founded" placeholder="foundation year">
+      <input type="text" name="add_homepage" placeholder="webpage">
+      <input type="text" name="add_stadium" placeholder="stadium">
+      <input type="text" name="add_stadium_capacity" placeholder="stadium capacity">
+      <button type="submit">Add</button>
+    </form>
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      
+      </div>
+    {% if teams %}
+      {% else %}
+      <br>
+      <br>
+      <form action="/team_profiles" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id="type" name="type" value="see_current_teams" />
+        <button style="display:block; margin:auto">SEE CURRENT TEAMS</button>
+      </form>
+      {% endif %}
+      <script>
+function enableDisable(bEnable, textBoxID, bId)
+    {
+        document.getElementById(textBoxID).value = ""
+        document.getElementById(textBoxID).hidden = !bEnable
+        // if (bEnable){
+          document.getElementById(textBoxID).setAttribute('value',  "")
+        // }  
+    }
+
+    
+
+//     function update_team(){
+//       console.log("updateeee")
+//       var updates = document.getElementById('update_team')
+//       var country = document.getElementById('update_country').value
+//       console.log(country)
+//       fetch('/team_profiles', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify({type: "team_homepage_update",country, teamCode:"ATK"}),
+// })
+//     }
+
+    var modal = document.getElementById("myModal");
+
+    function insertModal(teamName, teamCode){
+    var html = '';
+    html += '<div class="col"><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> </div>';
+   //Modal Structure
+   html += '<div id="modal1" class="modal">';
+   html += `<div class="modal-content"><h4>${teamName}</h4><p>${teamCode}</p></div>`;
+   html += '</div>';
+   modal.innerHTML = html;
+   modal.style.display = "block";
+}
+
+var table = document.getElementById("teams_profiles_table");
+            // console.log(rIndex);
+            console.log(table.rows.length);
+            for(var i = 1; i < table.rows.length; i++)
+            {
+                table.rows[i].onclick = function()
+                {
+                    rIndex = this.rowIndex;
+                    console.log(rIndex);
+                    const team =  table.rows.item(rIndex).cells
+                    console.log(team[1])                   
+                    
+                    // for(var j = 0; j < 3 ; j++) {
+                        var teamCode = team[0].innerHTML
+                        var teamName = team[1].innerHTML
+                        var teamNickname = team[2].innerHTML
+                        var teamCountry = team[3].innerHTML
+                        var teamFounded = team[4].innerHTML
+                        var teamHomepage = team[5].innerHTML
+                        var teamStadium = team[6].innerHTML
+                        var teamStadiumCapacity = team[7].innerHTML
+                        var teamFullName = team[8].innerHTML
+                        console.log(teamCode)
+                        // insertModal(teamName, teamCode);
+                        modal.innerHTML = ` <div class="modal-content">
+          <p align="center">Team Name: ${teamName}</p>
+          <p align="center">Team Code: ${teamCode}</p>
+          <p align="center">Team Full Name: ${teamFullName}</p>
+          <p align="center">Team Nickname: ${teamNickname}</p>
+          <p align="center">Country: ${teamCountry}</p>
+          <p align="center">Foundation Year: ${teamFounded}</p>
+          <p align="center">Webpage: ${teamHomepage}</p>
+          <p align="center">Stadium: ${teamStadium}</p>
+          <p align="center">Stadium Capacity: ${teamStadiumCapacity}</p>
+          <form action="/team_profiles" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="type" name="type" value="delete_team" />
+            <input type="hidden" id="team_code" name="team_code" value="${teamCode}"/>
+            <button type="submit" style="display: block; margin: auto;" on_click="delete_team">Delete Team</button>
+          </form>
+          </div>`     
+          modal.style.display = 'block'               // }
+                    // document.getElementById("fname").value = this.cells[0].innerHTML;
+                    // document.getElementById("lname").value = this.cells[1].innerHTML;
+                    // document.getElementById("age").value = this.cells[2].innerHTML;
+                };
+            }
+
+    
+        // Get the modal
+    
+    // Get the button that opens the modal
+    var btn = document.querySelector(".myBtn");
+    
+var teamName = document.querySelector(".teamName");
+        modal.innerHTML = `<span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+          <p>${teamName}</p>`
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks on the button, open the modal
+    // btn.onclick = function() {
+    //   modal.style.display = "block";
+    // }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+    
+    <style>
+        /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+    </style>
+{% endblock %}
